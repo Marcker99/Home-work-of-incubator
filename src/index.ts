@@ -43,16 +43,16 @@ app.use(middleWere)
 //Handlers
 //delete1
 //delete all
-app.delete('/testing/all-data', (req:Request,res:Response) => {
+app.delete('/', (req:Request,res:Response) => {
     videos = []
     res.sendStatus(204)
 })
 //get all
-app.get('/videos', (req:Request,res:Response) => {
+app.get('/', (req:Request,res:Response) => {
     res.status(200).send(videos)
 })
 //post
-app.post('/videos', (req:Request,res:Response) => {
+app.post('/', (req:Request,res:Response) => {
     let title = req.body.title
     let author = req.body.author
     let quality = req.body.availableResolutions.join()
@@ -107,7 +107,7 @@ app.post('/videos', (req:Request,res:Response) => {
 })
 
 //get by id
-app.get('/videos/:videoId', (req:Request,res:Response) => {
+app.get('/:videoId', (req:Request,res:Response) => {
     const answer = videos.find(n => n.id === +req.params.videoId);
     if(!answer){
        res.sendStatus(404)
@@ -117,7 +117,7 @@ app.get('/videos/:videoId', (req:Request,res:Response) => {
 
 })
 //put
-app.put('/videos/:videoId', (req:Request,res:Response) => {
+app.put('/:videoId', (req:Request,res:Response) => {
     const video = videos.find(n => n.id === +req.params.videoId);
     if(!video){
         res.sendStatus(404)
@@ -210,7 +210,7 @@ app.put('/videos/:videoId', (req:Request,res:Response) => {
 
 })
 //delete by id
-app.delete('/videos/:videoId', (req:Request,res:Response) => {
+app.delete('/:videoId', (req:Request,res:Response) => {
 
     if( !videos.some(n => n.id === +req.params.videoId)){
         res.sendStatus(404)

@@ -36,16 +36,16 @@ app.use(middleWere);
 //Handlers
 //delete1
 //delete all
-app.delete('/testing/all-data', (req, res) => {
+app.delete('/', (req, res) => {
     videos = [];
     res.sendStatus(204);
 });
 //get all
-app.get('/videos', (req, res) => {
+app.get('/', (req, res) => {
     res.status(200).send(videos);
 });
 //post
-app.post('/videos', (req, res) => {
+app.post('/', (req, res) => {
     let title = req.body.title;
     let author = req.body.author;
     let quality = req.body.availableResolutions.join();
@@ -100,7 +100,7 @@ app.post('/videos', (req, res) => {
     videos.push(newVideo);
 });
 //get by id
-app.get('/videos/:videoId', (req, res) => {
+app.get('/:videoId', (req, res) => {
     const answer = videos.find(n => n.id === +req.params.videoId);
     if (!answer) {
         res.sendStatus(404);
@@ -109,7 +109,7 @@ app.get('/videos/:videoId', (req, res) => {
     res.send(answer);
 });
 //put
-app.put('/videos/:videoId', (req, res) => {
+app.put('/:videoId', (req, res) => {
     const video = videos.find(n => n.id === +req.params.videoId);
     if (!video) {
         res.sendStatus(404);
@@ -205,7 +205,7 @@ app.put('/videos/:videoId', (req, res) => {
     res.send(204);
 });
 //delete by id
-app.delete('/videos/:videoId', (req, res) => {
+app.delete('/:videoId', (req, res) => {
     if (!videos.some(n => n.id === +req.params.videoId)) {
         res.sendStatus(404);
         return;
