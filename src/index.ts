@@ -57,7 +57,7 @@ app.post('/', (req:Request,res:Response) => {
     let author = req.body.author
     let quality = req.body.availableResolutions.join()
     //title
-    if(!title || typeof title !== 'string'.trim() || title.length > 40){
+    if(!title || typeof title !== 'string' || title.length > 40){
         res.status(400).send({
             errorsMessages: [
                 {
@@ -68,7 +68,7 @@ app.post('/', (req:Request,res:Response) => {
         return
     }
     //author
-    if(!author || typeof author !== 'string'.trim() || author.length > 20){
+    if(!author || typeof author !== 'string' || author.length > 20){
         res.status(400).send({
             errorsMessages: [
                 {
@@ -79,7 +79,7 @@ app.post('/', (req:Request,res:Response) => {
         return
     }
     //quality
-    if(availableResolutions.indexOf(quality) < 0){
+    if(availableResolutions.indexOf(quality) < 0 && quality.length){
         res.status(400).send({
             errorsMessages: [
                 {
@@ -118,11 +118,7 @@ app.get('/:videoId', (req:Request,res:Response) => {
 })
 //put
 app.put('/:videoId', (req:Request,res:Response) => {
-    const video = videos.find(n => n.id === +req.params.videoId);
-    if(!video){
-        res.sendStatus(404)
-        return
-    }
+
 //get property
     let title = req.body.title
     let author = req.body.author
@@ -132,7 +128,7 @@ app.put('/:videoId', (req:Request,res:Response) => {
     let optionDownload = req.body.canBeDownloaded
 //checking property
     //title
-    if(!title || typeof title !== 'string'.trim() || title.length > 40){
+    if(!title || typeof title !== 'string' || title.length > 40){
         res.status(400).send({
             errorsMessages: [
                 {
@@ -143,7 +139,7 @@ app.put('/:videoId', (req:Request,res:Response) => {
         return
     }
     //author
-    if(!author || typeof author !== 'string'.trim() || author.length > 20){
+    if(!author || typeof author !== 'string' || author.length > 20){
         res.status(400).send({
             errorsMessages: [
                 {
@@ -195,6 +191,12 @@ app.put('/:videoId', (req:Request,res:Response) => {
                     filed: "publicationDate error"
                 }
             ]})
+        return
+    }
+//!!!!
+    const video = videos.find(n => n.id === +req.params.videoId);
+    if(!video){
+        res.sendStatus(404)
         return
     }
     //res
