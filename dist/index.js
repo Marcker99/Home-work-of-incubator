@@ -36,7 +36,7 @@ app.use(middleWere);
 //Handlers
 //delete1
 //delete all
-app.delete('/', (req, res) => {
+app.delete('/testing/all-data', (req, res) => {
     videos = [];
     res.sendStatus(204);
 });
