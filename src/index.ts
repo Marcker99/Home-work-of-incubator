@@ -48,11 +48,11 @@ app.delete('/testing/all-data', (req:Request,res:Response) => {
     res.sendStatus(204)
 })
 //get all
-app.get('/', (req:Request,res:Response) => {
+app.get('/videos', (req:Request,res:Response) => {
     res.status(200).send(videos)
 })
 //post
-app.post('/', (req:Request,res:Response) => {
+app.post('/videos', (req:Request,res:Response) => {
     let title = req.body.title
     let author = req.body.author
     let quality = req.body.availableResolutions.join()
@@ -107,7 +107,7 @@ app.post('/', (req:Request,res:Response) => {
 })
 
 //get by id
-app.get('/:videoId', (req:Request,res:Response) => {
+app.get('videos/:videoId', (req:Request,res:Response) => {
     const answer = videos.find(n => n.id === +req.params.videoId);
     if(!answer){
        res.sendStatus(404)
@@ -117,7 +117,7 @@ app.get('/:videoId', (req:Request,res:Response) => {
 
 })
 //put
-app.put('/:videoId', (req:Request,res:Response) => {
+app.put('videos/:videoId', (req:Request,res:Response) => {
 
 //get property
     let title = req.body.title
@@ -212,7 +212,7 @@ app.put('/:videoId', (req:Request,res:Response) => {
 
 })
 //delete by id
-app.delete('/:videoId', (req:Request,res:Response) => {
+app.delete('videos/:videoId', (req:Request,res:Response) => {
 
     if( !videos.some(n => n.id === +req.params.videoId)){
         res.sendStatus(404)
