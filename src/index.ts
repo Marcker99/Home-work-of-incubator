@@ -107,7 +107,7 @@ app.post('/videos', (req:Request,res:Response) => {
 })
 
 //get by id
-app.get('videos/:videoId', (req:Request,res:Response) => {
+app.get('/videos/:videoId', (req:Request,res:Response) => {
     const answer = videos.find(n => n.id === +req.params.videoId);
     if(!answer){
        res.sendStatus(404)
@@ -117,7 +117,7 @@ app.get('videos/:videoId', (req:Request,res:Response) => {
 
 })
 //put
-app.put('videos/:videoId', (req:Request,res:Response) => {
+app.put('/videos/:videoId', (req:Request,res:Response) => {
 
 //get property
     let title = req.body.title
@@ -212,7 +212,7 @@ app.put('videos/:videoId', (req:Request,res:Response) => {
 
 })
 //delete by id
-app.delete('videos/:videoId', (req:Request,res:Response) => {
+app.delete('/videos/:videoId', (req:Request,res:Response) => {
 
     if( !videos.some(n => n.id === +req.params.videoId)){
         res.sendStatus(404)
