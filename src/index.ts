@@ -132,7 +132,7 @@ app.put('/videos/:videoId', (req:Request,res:Response) => {
             filed: "author error"})
     }
     //quality
-    if(availableResolutions.indexOf(quality) < 0 && quality.length){
+    if(!quality.every( (q : string) => availableResolutions.includes(q)) && quality.length){
         errorsMessages.push({message: "quality undefined", filed: "incorrect quality"})
     }
     //age
