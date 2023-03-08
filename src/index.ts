@@ -77,20 +77,19 @@ app.post('/videos', (req:Request,res:Response) => {
         return
     }
     //response
-    let newVideo = {
-        id: +(new Date()),
-        title: title ,
-        author:	author,
-        canBeDownloaded:true,
-        minAgeRestriction: null,
-        createdAt: new Date().toISOString(),
-        publicationDate: (new Date(new Date().setDate(new Date().getDate() + 1)).toISOString()),
-        availableResolutions: [quality]
-    }
-
     if(errorsMessages.length > 0){
         res.status(400).send({errorsMessages})
     } else {
+        let newVideo = {
+            id: +(new Date()),
+            title: title ,
+            author:	author,
+            canBeDownloaded:true,
+            minAgeRestriction: null,
+            createdAt: new Date().toISOString(),
+            publicationDate: (new Date(new Date().setDate(new Date().getDate() + 1)).toISOString()),
+            availableResolutions: [quality]
+        }
         res.status(201).send(newVideo)
         videos.push(newVideo)
     }
