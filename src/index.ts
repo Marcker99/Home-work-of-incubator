@@ -63,18 +63,22 @@ app.post('/videos', (req:Request,res:Response) => {
     let quality = req.body.availableResolutions.join()
     //title
     if(!title || typeof title !== 'string' || title.length > 40){
-        errorsMessages.push({message: "incorrect value",filed: "title error"})
-       
+        errorsMessages.push({
+            message: "incorrect value",
+            filed: "title error"})
+
     }
     //author
     if(!author || typeof author !== 'string' || author.length > 20){
-        errorsMessages.push({message: "incorrect value", filed: "author error"})
-        return
+        errorsMessages.push({
+            message: "incorrect value",
+            filed: "author error"})
+
     }
     //quality
     if(availableResolutions.indexOf(quality) < 0 && quality.length){
         errorsMessages.push({message: "quality undefined", filed: "incorrect quality"})
-        return
+
     }
     //response
     if(errorsMessages.length > 0){
