@@ -90,7 +90,6 @@ app.post('/videos', (req:Request,res:Response) => {
 
     if(errorsMessages.length > 0){
         res.status(400).send({errorsMessages})
-        return
     } else {
         res.status(201).send(newVideo)
         videos.push(newVideo)
