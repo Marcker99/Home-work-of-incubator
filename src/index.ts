@@ -17,7 +17,7 @@ interface Video {
 }
 interface Errors  {
     message: string;
-    filed: string
+    field: string
 }
 let videos: Video[] = [
     {
@@ -66,18 +66,18 @@ app.post('/videos', (req:Request,res:Response) => {
     if(!title || typeof title !== 'string' || title.length > 40){
         errorsMessages.push({
             message: "incorrect value",
-            filed: "title error"})
+            field: "title error"})
     }
     //author
     if(!author || typeof author !== 'string' || author.length > 20){
         errorsMessages.push({
             message: "incorrect value",
-            filed: "author error"})
+            field: "author error"})
 
     }
     //quality
     if(availableResolutions.indexOf(quality) < 0 && quality.length){
-        errorsMessages.push({message: "quality undefined", filed: "incorrect quality"})
+        errorsMessages.push({message: "quality undefined", field: "incorrect quality"})
 
     }
     //response
@@ -124,37 +124,37 @@ app.put('/videos/:videoId', (req:Request,res:Response) => {
     if(!title || typeof title !== 'string' || title.length > 40){
         errorsMessages.push({
             message: "incorrect value",
-            filed: "title error"})
+            field: "title error"})
     }
     //author
     if(!author || typeof author !== 'string' || author.length > 20){
         errorsMessages.push({
             message: "incorrect value",
-            filed: "author error"})
+            field: "author error"})
     }
     //quality
     if(!quality.every( (q : string) => availableResolutions.includes(q)) && quality.length){
-        errorsMessages.push({message: "quality undefined", filed: "incorrect quality"})
+        errorsMessages.push({message: "quality undefined", field: "incorrect quality"})
     }
     //age
 
     if(typeof age !== 'number' || age < 0 || age > 18 ){
             errorsMessages.push({
                 message: "incorrect age",
-                filed: "minAgeRestriction error"})
+                field: "minAgeRestriction error"})
     }
     //optionDownload
     if(!optionDownload || typeof optionDownload !== 'boolean'){
             errorsMessages.push({
                 message: "incorrect value",
-                filed: " canBeDownloaded error"
+                field: " canBeDownloaded error"
             })
     }
     //date
     if(!date || typeof date !== "string" || date.length !== 24 || !testDate.test(date)){
             errorsMessages.push({
                 message: "incorrect date",
-                filed: "publicationDate error"
+                field: "publicationDate error"
             })
     }
 //!!!!
