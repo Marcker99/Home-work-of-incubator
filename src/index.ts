@@ -41,7 +41,7 @@ let videos: Video[] = [
     }]
 const testDate = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/
 const availableResolutions: string [] = ['P144','P240','P360','P480','P720','P1080','P1440','P2160']
-const errorsMessages: Errors[]  = [];
+
 //middle ware
 let middleWere = bodyParser({})
 app.use(middleWere)
@@ -58,6 +58,7 @@ app.get('/videos', (req:Request,res:Response) => {
 })
 //post
 app.post('/videos', (req:Request,res:Response) => {
+    const errorsMessages: Errors[]  = [];
     let title = req.body.title
     let author = req.body.author
     let quality = req.body.availableResolutions.join()
@@ -109,7 +110,7 @@ app.get('/videos/:videoId', (req:Request,res:Response) => {
 })
 //put
 app.put('/videos/:videoId', (req:Request,res:Response) => {
-
+    const errorsMessages: Errors[]  = [];
 //get property
     let title = req.body.title
     let author = req.body.author
