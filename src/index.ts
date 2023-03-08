@@ -64,7 +64,7 @@ app.post('/videos', (req:Request,res:Response) => {
     //title
     if(!title || typeof title !== 'string' || title.length > 40){
         errorsMessages.push({message: "incorrect value",filed: "title error"})
-        return
+       
     }
     //author
     if(!author || typeof author !== 'string' || author.length > 20){
