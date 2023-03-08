@@ -66,7 +66,6 @@ app.post('/videos', (req:Request,res:Response) => {
         errorsMessages.push({
             message: "incorrect value",
             filed: "title error"})
-
     }
     //author
     if(!author || typeof author !== 'string' || author.length > 20){
@@ -81,7 +80,7 @@ app.post('/videos', (req:Request,res:Response) => {
 
     }
     //response
-    if(errorsMessages.length > 0){
+    if(errorsMessages.length !== 0){
         res.status(400).send({errorsMessages})
     } else {
         let newVideo = {
@@ -157,7 +156,7 @@ app.put('/videos/:videoId', (req:Request,res:Response) => {
             })
     }
 //!!!!
-    
+
     if(errorsMessages.length > 0){
         res.status(400).send({errorsMessages})
     }
@@ -175,8 +174,6 @@ app.put('/videos/:videoId', (req:Request,res:Response) => {
         video.publicationDate = date
         video.availableResolutions[0] = quality
     res.send(204)
-
-
 
 })
 //delete by id
