@@ -112,9 +112,10 @@ app.get('/videos/:videoId', (req:Request,res:Response) => {
 app.put('/videos/:videoId', (req:Request,res:Response) => {
     const errorsMessages: Errors[]  = [];
 //get property
+
     let title = req.body.title
     let author = req.body.author
-    let quality = req.body.availableResolutions.join()
+    let quality = req.body.availableResolutions
     let age = req.body.minAgeRestriction
     let date = req.body.publicationDate
     let optionDownload = req.body.canBeDownloaded
@@ -132,7 +133,7 @@ app.put('/videos/:videoId', (req:Request,res:Response) => {
             filed: "author error"})
     }
     //quality
-    if(!(quality.every( (q : string) => availableResolutions.includes(q))) && quality.length){
+    if(!quality.every( (q : string) => availableResolutions.includes(q)) && quality.length){
         errorsMessages.push({message: "quality undefined", filed: "incorrect quality"})
     }
     //age
