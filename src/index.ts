@@ -146,7 +146,7 @@ app.put('/videos/:videoId', (req:Request,res:Response) => {
     if(!optionDownload || typeof optionDownload !== 'boolean'){
             errorsMessages.push({
                 message: "incorrect value",
-                field: " canBeDownloaded"
+                field: "canBeDownloaded"
             })
     }
     //date
