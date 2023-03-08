@@ -66,18 +66,18 @@ app.post('/videos', (req:Request,res:Response) => {
     if(!title || typeof title !== 'string' || title.length > 40){
         errorsMessages.push({
             message: "incorrect value",
-            field: "title error"})
+            field: "title"})
     }
     //author
     if(!author || typeof author !== 'string' || author.length > 20){
         errorsMessages.push({
             message: "incorrect value",
-            field: "author error"})
+            field: "author"})
 
     }
     //quality
     if(availableResolutions.indexOf(quality) < 0 && quality.length){
-        errorsMessages.push({message: "quality undefined", field: "incorrect quality"})
+        errorsMessages.push({message: "quality undefined", field: "availableResolutions"})
 
     }
     //response
@@ -124,37 +124,37 @@ app.put('/videos/:videoId', (req:Request,res:Response) => {
     if(!title || typeof title !== 'string' || title.length > 40){
         errorsMessages.push({
             message: "incorrect value",
-            field: "title error"})
+            field: "title"})
     }
     //author
     if(!author || typeof author !== 'string' || author.length > 20){
         errorsMessages.push({
             message: "incorrect value",
-            field: "author error"})
+            field: "author"})
     }
     //quality
     if(!quality.every( (q : string) => availableResolutions.includes(q)) && quality.length){
-        errorsMessages.push({message: "quality undefined", field: "incorrect quality"})
+        errorsMessages.push({message: "quality undefined", field: "availableResolutions"})
     }
     //age
 
     if(typeof age !== 'number' || age < 0 || age > 18 ){
             errorsMessages.push({
                 message: "incorrect age",
-                field: "minAgeRestriction error"})
+                field: "minAgeRestriction"})
     }
     //optionDownload
     if(!optionDownload || typeof optionDownload !== 'boolean'){
             errorsMessages.push({
                 message: "incorrect value",
-                field: " canBeDownloaded error"
+                field: " canBeDownloaded"
             })
     }
     //date
     if(!date || typeof date !== "string" || date.length !== 24 || !testDate.test(date)){
             errorsMessages.push({
                 message: "incorrect date",
-                field: "publicationDate error"
+                field: "publicationDate"
             })
     }
 //!!!!
