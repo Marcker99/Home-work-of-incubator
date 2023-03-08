@@ -61,7 +61,7 @@ app.post('/videos', (req:Request,res:Response) => {
     const errorsMessages: Errors[]  = [];
     let title = req.body.title
     let author = req.body.author
-    let quality = req.body.availableResolutions.join()
+    let quality = req.body.availableResolutions
     //title
     if(!title || typeof title !== 'string' || title.length > 40){
         errorsMessages.push({
@@ -76,9 +76,8 @@ app.post('/videos', (req:Request,res:Response) => {
 
     }
     //quality
-    if(availableResolutions.indexOf(quality) < 0 && quality.length){
+    if(!quality.every( (q : string) => availableResolutions.includes(q)) && quality.length){
         errorsMessages.push({message: "quality undefined", field: "availableResolutions"})
-
     }
     //response
     if(errorsMessages.length !== 0){
@@ -92,7 +91,7 @@ app.post('/videos', (req:Request,res:Response) => {
             minAgeRestriction: null,
             createdAt: new Date().toISOString(),
             publicationDate: (new Date(new Date().setDate(new Date().getDate() + 1)).toISOString()),
-            availableResolutions: [quality]
+            availableResolutions: quality
         }
         res.status(201).send(newVideo)
         videos.push(newVideo)
