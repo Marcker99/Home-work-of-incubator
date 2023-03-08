@@ -15,6 +15,10 @@ interface Video {
 
 
 }
+interface Errors  {
+    message: string;
+    filed: string
+}
 let videos: Video[] = [
     {
         id: 1,
@@ -36,7 +40,8 @@ let videos: Video[] = [
         availableResolutions: [ 'P720']
     }]
 const testDate = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/
-const availableResolutions: string [] = ['P144','P240','P360','P480','P720','P1080','P1440','P2160'  ]
+const availableResolutions: string [] = ['P144','P240','P360','P480','P720','P1080','P1440','P2160']
+const errorsMessages: Errors[]  = [];
 //middle ware
 let middleWere = bodyParser({})
 app.use(middleWere)
@@ -58,35 +63,17 @@ app.post('/videos', (req:Request,res:Response) => {
     let quality = req.body.availableResolutions.join()
     //title
     if(!title || typeof title !== 'string' || title.length > 40){
-        res.status(400).send({
-            errorsMessages: [
-                {
-                    message: "incorrect value",
-                    filed: "title error"
-                }
-            ]})
+        errorsMessages.push({message: "incorrect value",filed: "title error"})
         return
     }
     //author
     if(!author || typeof author !== 'string' || author.length > 20){
-        res.status(400).send({
-            errorsMessages: [
-                {
-                    message: "incorrect value",
-                    filed: "author error"
-                }
-            ]})
+        errorsMessages.push({message: "incorrect value", filed: "author error"})
         return
     }
     //quality
     if(availableResolutions.indexOf(quality) < 0 && quality.length){
-        res.status(400).send({
-            errorsMessages: [
-                {
-                    message: "quality undefined",
-                    filed: "incorrect quality"
-                }
-            ]})
+        errorsMessages.push({message: "quality undefined", filed: "incorrect quality"})
         return
     }
     //response
@@ -100,12 +87,15 @@ app.post('/videos', (req:Request,res:Response) => {
         publicationDate: (new Date(new Date().setDate(new Date().getDate() + 1)).toISOString()),
         availableResolutions: [quality]
     }
-    res.status(201).send(newVideo)
 
-    videos.push(newVideo)
-
+    if(errorsMessages.length > 0){
+        res.status(400).send({errorsMessages})
+        return
+    } else {
+        res.status(201).send(newVideo)
+        videos.push(newVideo)
+    }
 })
-
 //get by id
 app.get('/videos/:videoId', (req:Request,res:Response) => {
     const answer = videos.find(n => n.id === +req.params.videoId);
