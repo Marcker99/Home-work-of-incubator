@@ -121,71 +121,47 @@ app.put('/videos/:videoId', (req:Request,res:Response) => {
 //checking property
     //title
     if(!title || typeof title !== 'string' || title.length > 40){
-        res.status(400).send({
-            errorsMessages: [
-                {
-                    message: "incorrect value",
-                    filed: "title error"
-                }
-            ]})
-        return
+        errorsMessages.push({
+            message: "incorrect value",
+            filed: "title error"})
     }
     //author
     if(!author || typeof author !== 'string' || author.length > 20){
-        res.status(400).send({
-            errorsMessages: [
-                {
-                    message: "incorrect value",
-                    filed: "author error"
-                }
-            ]})
-        return
+        errorsMessages.push({
+            message: "incorrect value",
+            filed: "author error"})
     }
     //quality
-    if(availableResolutions.indexOf(quality) < 0){
-        res.status(400).send({
-            errorsMessages: [
-                {
-                    message: "quality undefined",
-                    filed: "incorrect quality"
-                }
-            ]})
-        return
+    if(availableResolutions.indexOf(quality) < 0 && quality.length){
+        errorsMessages.push({message: "quality undefined", filed: "incorrect quality"})
     }
     //age
-    if(typeof age !== 'number' || age < 0 || age > 18  ){
-        res.status(400).send({
-            errorsMessages: [
-                {
-                    message: "incorrect age",
-                    filed: "minAgeRestriction error"
-                }
-            ]})
-        return
+
+    if(typeof age !== 'number' || age < 0 || age > 18 ){
+            errorsMessages.push({
+                message: "incorrect age",
+                filed: "minAgeRestriction error"})
     }
     //optionDownload
     if(!optionDownload || typeof optionDownload !== 'boolean'){
-        res.status(400).send({
-            errorsMessages: [
-                {
-                    message: "incorrect value",
-                    filed: " canBeDownloaded error"
-                }
-            ]})
-        return
+            errorsMessages.push({
+                message: "incorrect value",
+                filed: " canBeDownloaded error"
+            })
     }
     //date
     if(!date || typeof date !== "string" || date.length !== 24 || !testDate.test(date)){
-        res.status(400).send({
-            errorsMessages: [
-                {
-                    message: "incorrect date ",
-                    filed: "publicationDate error"
-                }
-            ]})
-        return
+            errorsMessages.push({
+                message: "incorrect date",
+                filed: "publicationDate error"
+            })
     }
 //!!!!
+    
+    if(errorsMessages.length > 0){
+        res.status(400).send({errorsMessages})
+    }
+
     const video = videos.find(n => n.id === +req.params.videoId);
     if(!video){
         res.sendStatus(404)
