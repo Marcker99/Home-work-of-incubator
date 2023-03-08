@@ -174,7 +174,7 @@ app.put('/videos/:videoId', (req:Request,res:Response) => {
         video.canBeDownloaded = optionDownload
         video.minAgeRestriction = age
         video.publicationDate = date
-        video.availableResolutions[0] = quality
+        video.availableResolutions = quality
     res.send(204)
 
 })
